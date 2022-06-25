@@ -1,0 +1,14 @@
+{
+    "children": 50,
+    "parents": 100,
+    "parent_alg": "fps",
+    "survival_alg": "truncation",
+    "termination_alg": "n evals",
+    "initialization_alg": "validity forced",
+    "n": 10,
+    "num_of_runs": 30,
+    "fitness_evals": 10000,
+    "log_file": "./logs/a1_run_test.log",
+    "solution_file": "./solutions/a1_solution_test.txt",
+    "ignore_black_cells": true
+}

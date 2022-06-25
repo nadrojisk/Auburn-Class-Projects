@@ -1,0 +1,13 @@
+{
+    "children": 50,
+    "parents": 100,
+    "parent_alg": "fps",
+    "survival_alg": "truncation",
+    "termination_alg": "n evals",
+    "n": 10,
+    "num_of_runs": 30,
+    "fitness_evals": 10000,
+    "log_file": "./logs/1_run_ea.log",
+    "solution_file": "./solutions/1_ea_solution.txt",
+    "ignore_black_cells": true
+}

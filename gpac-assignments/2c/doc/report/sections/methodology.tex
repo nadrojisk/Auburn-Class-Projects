@@ -1,0 +1,125 @@
+\subsection{Changes}
+
+Not much had to be changed to extend the existing framework to give the Ghosts genetic programming aspects.
+The function that required the most changes was \texttt{\_genetic\_programming()}. 
+This function is the core of the GP framework, here it loops through each run, creates the initial population, performs the children's creations, individual selection, etc.
+However, in 2B it is assumed that there was only one population, the Pac-Man population.
+An example of this change is in the function where parent selection and recombination occurs.
+One can see that \texttt{parent\_selection()} needs to be called with both a Pac-Man population and the Ghost population. \\
+
+\begin{lstlisting}[language=Python]
+# parent selection
+pacman_parents = self.parent_selection(pacman_population, gpac.PACMAN)
+ghost_parents = self.parent_selection(ghost_population, gpac.GHOST)
+
+# recombination and mutation
+pacman_children = self.child_selection(pacman_parents, gpac.PACMAN)
+ghost_children = self.child_selection(ghost_parents, gpac.GHOST)
+\end{lstlisting}
+
+\subsection{Process}
+
+\paragraph{Creating the Population}
+
+For each run the first function the program calls is \\ \texttt{\_create\_initial\_populations()}.
+This function handles creating the initial population for both the Ghosts and Pac-Man.
+\texttt{\_create\_initial\_populations()} is just a wrapper for \texttt{\_create\_initial\_population()} which creates a specific population; either a Ghost or Pac-Man.
+
+\begin{lstlisting}[language=Python]
+def _create_initial_population(self, unit):
+    population = []
+    for _ in range(self.pacman_parents):
+        # create tree
+        if random.randint(0, 1):
+            tree_type = 'full'
+        else:
+            tree_type = 'grow'
+        head = node.Node(tree_type=tree_type, depth_limit=self.max_depth, unit=unit)
+        head.grow()
+        population.append(head)
+    return population
+
+def _create_initial_populations(self):
+    pops = []
+    pops.append(self._create_initial_population(gpac.PACMAN))
+    pops.append(self._create_initial_population(gpac.GHOST))
+    # play game and return individual
+    return self.create_individuals(pops[0], pops[1])
+\end{lstlisting}
+
+After the initial set of nodes are created for each population it is time to pair the controllers against one another, evaluate them, and get their fitnesses.
+This is handled by \texttt{\_create\_individuals()} which maps each Pac-Man controller to a Ghost controller and plays a game to completion.
+The return of \texttt{calculate\_fitness()} is the fitness of the Pac-Man controller and the Ghost.
+
+\begin{lstlisting}[language=Python]
+def create_individuals(self, pacman_population, ghost_population):
+    pacman_ind = []
+    ghost_ind = []
+    population = list(zip(pacman_population, ghost_population))
+    with multiprocessing.Pool() as pool:
+        for i, res in enumerate(pool.imap_unordered(self.calculate_fitness, population)):
+            pacman_ind.append(res[0])
+            ghost_ind.append(res[1])
+    return pacman_ind, ghost_ind
+\end{lstlisting}
+
+\paragraph{Playing Pac-Man}
+
+\texttt{calculate\_fitness()} is fairly similar to the last assignment except for this iteration each turn requires the Ghost controller to be passed along with the Pac-Man controller.
+Additionally, the Ghost's fitness has to be calculated alongside Pac-Man's fitness.
+The Ghost's fitness is calculated in the following way: $\frac{1}{s - p + 1} + b$ where $s$ is the final score of the game, $p$ is the parsimony penalty of the Ghost tree, and $b$ is the bonus the Ghost get if they catch Pac-Man.
+It is important to note that the assignment's specifications mentioned that the bonus should be relative to how much time was left in the game but the author did not realize that until the day before the due date and there was not enough time to rerun the experiments and perform additional analysis.
+
+To handle each turn of the game the function \texttt{\_turn()} is used which is similar to 2B. 
+Except now it takes two parameters, the first being the Pac-Man controller and the second being the Ghost controller.
+Instead of randomly picking each Ghosts' move like in 2B the controller evaluates the Ghost's controller tree to determine the optimal move in the same way that Pac-Man operates.
+Although similar to the Pac-Man controller the Ghost controller has different sensors.
+The required sensors for the Ghost controllers are Manhattan distance to Pac-Man and Manhattan distance to the nearest Ghost.
+However, the author decided to implement a third sensor after discussing it with the TAs. 
+The last sensor implemented was the shortest path to Pac-Man which seems to massively improve the Ghosts performance especially when paired with the bonus the Ghosts can get for catching Pac-Man.
+A new sensor was added to the existing sensors for Pac-Man's controller as well, this sensor is the shortest path to the nearest Ghost.
+The shortest path code used by the authored was a modified version found online \cite{stutipathak31jan_2020}.
+
+\paragraph{Evolution Loop}
+
+After the fitness is generated for each Individual execution returns to the main block; \texttt{\_genetic\_programming()}.
+Following this, the best individual for each population is added to a running list of individuals; which is used later for logging purposes.
+After that, the evolution loop happens.
+Parents are selected from each population and using those parents children are created from each population.
+The parent selection algorithms have only changed to ensure that both Pac-Man and the Ghost populations use their respective algorithms specified in the configuration file and to ensure that if they have differing parent sizes that those are used correctly.
+However, at this point, they are not evaluated as they will be evaluated together with the existing population.
+Since the opponent is evolving with Pac-Man you cannot keep the existing individuals like in 2B; you will need to reevaluate them.
+Therefore when the children are returned \texttt{reevaluate()} is called passing the children and the existing populations.
+Since the existing population already exists as Individuals the author pulls out the trees from them and adds it to a list of individuals and recalls \texttt{create\_individuals}.
+This is done just to be more efficient and to reuse code. 
+
+\begin{lstlisting}[language=Python]
+    def reevaluate(self, pacman_population, ghost_population, pacman_children, ghost_children):
+        pacman_nodes = [pacman.head_node for pacman in pacman_population]
+        ghost_nodes = [ghost.head_node for ghost in ghost_population]
+
+        pacman_nodes += pacman_children
+        ghost_nodes += ghost_children
+
+        return self.create_individuals(pacman_nodes, ghost_nodes)
+\end{lstlisting}
+
+Once the individuals in both populations are re-evaluated survival selection occurs on both populations.
+Similar changes to the parent selection algorithms were made to the survival selection ones.
+After survival occurs some logging variables are updated and then the termination criteria are checked. 
+If the loop should continue the process described above happens again until the loop needs to end.
+Once the evolution loop ends the process moves forward to the next run and runs the whole process again just like in all the prior assignments.
+After all the runs are completed the logging functions are run.
+In this assignment, the author was asked to log both Pac-Man's solution and the Ghosts' solution.
+Additionally, an exhibition game needs to be played against the best Pac-Man controller and the best Ghost controller with the world file of this game should be logged.
+
+\paragraph{CIAO Plots}
+
+An additional requirement for graduate students was to investigate co-evolutionary cycling. 
+Cycling, along with disengagement, and mediocre stability are problems that sometimes occur in co-evolution.
+With \textit{cycling} both `populations circle around to previous solutions over and over again' \cite{rush_tauritz}. 
+This can be seen in CIAO plots which are plots that compare the current individual against ancestral opponents.
+With a CIAO plot cycling appears as strips of black and white which shows that one population dominating one and then swapping off with the other over and over.
+\textit{Disengagement} is when `one side will have consistently high fitness while the other is low' \cite{rush_tauritz} and visually presents itself with either large portions of black or white. 
+Finally, \textit{mediocre stability} is when `neither side changes much, and neither seems to be much stronger' \cite{rush_tauritz}.
+On a CIAO plot, the graph can present as being gray or look like static; random selections of black and white pixels but no real growth.

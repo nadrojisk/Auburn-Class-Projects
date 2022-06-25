@@ -1,0 +1,6 @@
+
+*.class
+out/production/NetworksLabs/test.html
+out/production/NetworksLabs/TestFile.html
+*.iml
+*.xml

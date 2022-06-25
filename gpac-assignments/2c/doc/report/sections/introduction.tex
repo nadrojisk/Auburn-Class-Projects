@@ -1,0 +1,19 @@
+For this assignment, the author was instructed to build a competitive co-evol\-utionary search algorithm for Pac-Man.
+In the prior assignment, 2B, Pac-Man's intelligence was extended by using a genetic programming search algorithm.
+To build on this the current iteration has the Ghosts' utilizing a genetic programming search algorithm. 
+The two populations will compete against each other, and in theory, get better as the generations go on.
+However, there can be certain situations that can cause undesirable effects which are discussed later.
+
+The Ghosts are given the same algorithms that Pac-Man has access to.
+Their choices for parent selection algorithms are fitness proportional selection and over selection and for survival selection: truncation, k-tournament without replacement.
+Via the configuration file, one can change both $\lambda$, $\mu$, $k$, mutation rates, and parsimony pressure for Pac-Man and the Ghosts separately.
+
+This paper starts with the methodology section which explains the custom parts of the author's EA framework.
+Additionally, differences relative to assignment 2B are explained as to not re-explain the entire framework to the grader.
+Following the methodology section is a section explaining the author's experiments and how they were setup and ran.
+This is useful so the graders can produce the same results as the author if the need arises.
+The results of these experiments are located in the result section.
+Here all the experiment's data is listed in graphical formats along with statistical analysis of the data sets.
+After the results are stated there will be a discussion that contains the author's understanding of the data.
+Along with this is a brief discussion of the CIAO plots produced by the experiments.
+Following the discussion section will be the conclusion which will wrap up the paper.

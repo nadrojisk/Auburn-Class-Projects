@@ -1,0 +1,22 @@
+Utilizing competitive co-evaluation one can create smart and more diverse solutions to problems.
+Before when it was a GP controller against a random agent, not a lot of interesting things occurred.
+However, when both agents can learn and play off of each other interesting strategies can occur.
+For instance, in one game the author saw a Ghost evolve with a tree that simply added together with the shortest path to Pac-Man to the shortest path to Pac-Man.
+Utilizing this the Ghost ensured that they would always move closer to Pac-Man acting like a homing missing and eating him.
+However, this strategy only seemed to work against `dumb' Pac-Man, as the author saw one game where the Ghost utilized this strategy, however, Pac-Man simply kept moving away from the Ghost and kept consuming pills so he was able to finish the game with the Ghost one tile away from him.
+The issue with that Ghost strategy is that \emph{all} of the Ghosts take the same move, however, if they had split off they could have potentially boxed Pac-Man in.
+Regardless it was very interesting to watch.
+
+There were some areas the author wished to look into but ran out of time and motivation (mainly due to the end of the semester burnout).
+An example of an area that the author wished to implement was to have paired the controllers up multiple times instead of doing a 1-1 evaluation as doing 1-1 under samples both populations.
+For instance, a Pac-Man controller that is just adequate could get paired against a really bad Ghost controller. 
+In this pairing, the Pac-Man controller could achieve a high score simply because the Ghost controller is not intelligent enough to do anything.
+If this happens then the Pac-Man controller would achieve high fitness even though it is not that great.
+Another area that needs improvement is the optimization of the codebase.
+Run-time was a reoccurring issue throughout the entire project and the author understands that it is usually an issue with AI-like projects.
+However, running a debugger and waiting for the program to execute for 30 minutes just for it to break was unfortunate.
+This is not of course the fault of the TA's or the professor but the student himself. 
+
+The projects were all very interesting throughout the semester and the author very much enjoyed working on them.
+Towards the end, some slacking did occur and they may have not been in the best state.
+The TA's also did a great job of answering any pending questions on the projects and for just general EC stuff!

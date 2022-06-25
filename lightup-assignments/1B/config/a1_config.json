@@ -1,0 +1,13 @@
+{
+    "children": 50,
+    "parents": 100,
+    "parent_alg": "sus",
+    "survival_alg": "truncation",
+    "termination_alg": "num of evals",
+    "initialization_alg": "validity forced",
+    "num_of_runs": 30,
+    "fitness_evals": 10000,
+    "log_file": "./logs/a1_run.log",
+    "solution_file": "./solutions/a1_solution.txt",
+    "ignore_black_cells": true
+}

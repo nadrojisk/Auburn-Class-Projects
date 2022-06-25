@@ -1,0 +1,9 @@
+{
+    "seed": "None",
+    "algorithm": "Random Search",
+    "num_of_runs": 30,
+    "max_fitness": 10000,
+    "log_file": "./logs/1_run.log",
+    "solution_file": "./solutions/1_solution.txt",
+    "ignore_black_cells": true
+}

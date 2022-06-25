@@ -1,0 +1,22 @@
+{
+    "algorithm": "gp",
+    "max_runs": 30,
+    "max_evaluations": 2000,
+    "pill_density": 0.5,
+    "fruit_spawn_probability": 0.01,
+    "fruit_score": 10,
+    "time_multiplier": 2,
+    "children": 100,
+    "parents": 200,
+    "max_depth": 3,
+    "parsimony": 1,
+    "parsimony_type": "count",
+    "termination_alg": "num of evals",
+    "parent_selection_alg": "fps",
+    "survival_selection_alg": "truncation",
+    "mutation_rate": 0,
+    "top_x_percent": 0.32,
+    "log_file": "./logs/g2/config1.log",
+    "solution_file": "./solutions/g2/config1_solution.txt",
+    "highest_score_file": "./worlds/g2/config1_world.txt"
+}

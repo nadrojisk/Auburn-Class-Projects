@@ -1,0 +1,15 @@
+{
+    "algorithm": "random",
+
+    "max_runs": 3,
+    "max_evaluations": 100,
+
+    "pill_density": 0.5,
+    "fruit_spawn_probability": 1,
+    "fruit_score": 10,
+    "time_multiplier": 2,
+
+    "log_file": "./logs/test/test2_run.log",
+    "solution_file": "./solutions/test/test2_solution.txt",
+    "highest_score_file": "./worlds/test/2map0.txt"
+}

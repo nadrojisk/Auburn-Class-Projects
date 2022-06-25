@@ -1,0 +1,8 @@
+{
+    "seed": "None",
+    "algorithm": "Random Search",
+    "num_of_runs": 30,
+    "fitness_evals": 10000,
+    "log_file": "./logs/run.log",
+    "solution_file": "./solutions/solution.txt"
+}

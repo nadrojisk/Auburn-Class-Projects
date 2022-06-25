@@ -1,0 +1,14 @@
+{
+    "children": 50,
+    "parents": 100,
+    "parent_alg": "sus",
+    "survival_alg": "truncation",
+    "termination_alg": "num of evals",
+    "initialization_alg": "validity forced",
+    "child_alg": "uniform",
+    "num_of_runs": 30,
+    "fitness_evals": 10000,
+    "log_file": "./logs/b2_run_uniform.log",
+    "solution_file": "./solutions/b2_solution_uniform.txt",
+    "ignore_black_cells": true
+}

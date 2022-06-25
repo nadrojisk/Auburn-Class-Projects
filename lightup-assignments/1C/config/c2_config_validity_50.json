@@ -1,0 +1,19 @@
+{
+    "children": 50,
+    "parents": 100,
+    "parent_alg": "sus",
+    "child_alg": "one point crossover",
+    "survival_alg": "truncation",
+    "termination_alg": "num of evals",
+    "num_of_runs": 30,
+    "initialization_alg": "validity forced",
+    "survival_strategy_alg": "plus",
+    "fitness_evals": 10000,
+    "mutation_rate": 0.40,
+    "penalty_coefficient": 50,
+    "constraint": "penalty",
+    "log_file": "./logs/c2/c2_validity_50_run.log",
+    "solution_file": "./solutions/c2/c2_validity_50_solution.txt",
+    "ignore_black_cells": false,
+    "log_1b": false
+}

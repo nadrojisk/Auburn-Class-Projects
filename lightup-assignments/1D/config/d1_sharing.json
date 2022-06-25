@@ -1,0 +1,18 @@
+{
+    "children": 50,
+    "parents": 100,
+    "parent_alg": "sus",
+    "child_alg": "one point crossover",
+    "survival_alg": "truncation",
+    "termination_alg": "num of evals",
+    "num_of_runs": 30,
+    "initialization_alg": "vanilla",
+    "survival_strategy_alg": "plus",
+    "fitness_evals": 10000,
+    "mutation_rate": 0.40,
+    "log_file": "./logs/d1/d1_sharing_run.log",
+    "solution_file": "./solutions/d1/d1_sharing_solution.txt",
+    "ignore_black_cells": false,
+    "bulb_objective": false,
+    "diversity_algorithm": "sharing"
+}

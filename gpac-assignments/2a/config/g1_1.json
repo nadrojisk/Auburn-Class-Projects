@@ -1,0 +1,15 @@
+{
+    "algorithm": "random",
+
+    "max_runs": 30,
+    "max_evaluations": 2000,
+
+    "pill_density": 0.5,
+    "fruit_spawn_probability": 0.01,
+    "fruit_score": 10,
+    "time_multiplier": 2,
+
+    "log_file": "./logs/g1/config1.log",
+    "solution_file": "./solutions/g1/config1_solution.txt",
+    "highest_score_file": "./worlds/g1/config1_world.txt"
+}

@@ -1,0 +1,8 @@
+-
+|G_SHORT
+|-
+||-
+|||F
+|||G_SHORT
+||G_SHORT
+

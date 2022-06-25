@@ -1,0 +1,12 @@
+*
+|RAND
+||+
+|||W
+|||G
+||+
+|||W
+|||G_SHORT
+|RAND
+||G_SHORT
+||F
+
